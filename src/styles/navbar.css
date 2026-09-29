@@ -1,0 +1,158 @@
+/* 상단 고정 메뉴 */
+.navbar {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: var(--nav-height);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s,
+    border-color 0.3s;
+}
+
+.navbar.is-scrolled,
+.navbar.is-open {
+  background: rgba(14, 27, 51, 0.78);
+  border-color: var(--border);
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+}
+
+.navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.navbar__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-name);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.navbar__logo-mark {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--accent-line);
+  border-radius: 8px;
+  background: var(--color-navy);
+}
+
+.navbar__logo-mark::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 10px var(--color-accent);
+}
+
+.navbar__links {
+  display: flex;
+  gap: 4px;
+}
+
+.navbar__link {
+  display: block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--color-gray-300);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition:
+    color 0.2s,
+    background-color 0.2s;
+}
+
+.navbar__link:hover {
+  color: var(--color-white);
+}
+
+.navbar__link.is-active {
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* 햄버거 버튼 (모바일) */
+.navbar__toggle {
+  display: none;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navbar__toggle span {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--color-white);
+  transition:
+    transform 0.3s var(--ease),
+    top 0.3s var(--ease);
+}
+
+.navbar__toggle span:first-child { top: 17px; }
+.navbar__toggle span:last-child { top: 25px; }
+
+.navbar.is-open .navbar__toggle span:first-child {
+  top: 21px;
+  transform: rotate(45deg);
+}
+.navbar.is-open .navbar__toggle span:last-child {
+  top: 21px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 860px) {
+  .navbar__toggle {
+    display: block;
+  }
+
+  .navbar__menu {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    height: calc(100dvh - var(--nav-height));
+    padding: 16px var(--gutter) 32px;
+    background: rgba(14, 27, 51, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.3s var(--ease),
+      transform 0.3s var(--ease),
+      visibility 0.3s;
+  }
+
+  .navbar.is-open .navbar__menu {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .navbar__links {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .navbar__link {
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
